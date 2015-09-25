@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"><title>Discovery</title><!-- sass--><link href="assets/css/main.css" rel="stylesheet"></head><body ng-app="mobileMD"><ion-nav-view></ion-nav-view><!-- cordova script--><script src="cordova.js"></script><script src="opentok.js"></script><script src="plugins/nl.x-services.plugins.launchmyapp/www/ios/LaunchMyApp.js"></script><script src="plugins/nl.x-services.plugins.calendar/www/Calendar.js">       </script><script src="//static.opentok.com/webrtc/v2.2/js/TB.js" type="text/javascript" charset="utf-8"></script><!-- your app's js--><script src="assets/js/app.js"></script><script type="text/javascript">var handleOpenURL = function(url) {
+  window.emit('something',url);
+  };
+  window.events =  [];
+  window.emit = function(event,data) {
+  var func = window.events[event];
+  if(func && typeof func === 'function') {
+  func(data);
+  }
+  };
+  window.listenEvent = function(event,cb) {
+  window.events[event] = cb;
+  };</script><script type="text/javascript">document.addEventListener('offline',deviceOffline,false);
+document.addEventListener('online',deviceOnline,false);
+window.listenEvent('showError',deviceOffline);
+function deviceOnline() {
+window.stillOffline = false;
+}
+function deviceOffline () {
+window.emit('removeLoading');
+if(window.Connection) {
+if(window.plugins && window.plugins.toast) {
+window.plugins.toast.show('There was a problem communicating with the server. Please check your internet connection and try again.', 'long', 'bottom');
+}
+}
+}</script><script type="text/javascript">setTimeout(function() {
+navigator.splashscreen.hide();
+}, 5000);</script>
+<script type="text/javascript">document.write('<script src="' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')</script>
+</body></html>
